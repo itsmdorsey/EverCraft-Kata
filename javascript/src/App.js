@@ -1,6 +1,6 @@
 var alignment_option = ["Good", "Evil",  "Neutral"];
 
-			//FName, LName, Align, Attack, Armor
+			//FName, LName, Align, Attack
 function character(first, last, align, roll) {
     this.firstName = first;
     this.lastName = last;
@@ -16,19 +16,19 @@ function character(first, last, align, roll) {
 	this.getArmor = function() { return this.armor;}
  	this.gethp = function() { return this.hp;}
  	this.setAttack = function(attack) { return this.attack = attack;}
-
-
 };
 
 function roll(attack, defend, hp){
+	if (attack === 20){
+		return hp-2;
+	}
+	
 	if (attack>=defend) {
 		return hp-1;
 	};
 	if (attack<defend){
 		return hp;
 	}
-//pass attack value of P1 and armor of opp.
-
 };
 
 //  function getName(name) {

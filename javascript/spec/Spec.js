@@ -2,7 +2,7 @@
 var MDchar = new character("Matt", "Dorsey", 1, 20)
 var Opp = new character("Tim", "Bradshaw", 2, 8)
 describe("Character", function() {
-	//FName, LName, Align, Attack, Armor
+	//FName, LName, Align, Attack
 
 //NEED TO validate that it is a proper character when created.
 
@@ -31,7 +31,7 @@ describe("Character", function() {
 //       expect(hit).toBe(true);
 //     });
  		it("Can score an attack", function() {
-      expect(Opp.gethp()).toBe(4);
+      expect(Opp.gethp()).toBe(3);
     });
 
 });
