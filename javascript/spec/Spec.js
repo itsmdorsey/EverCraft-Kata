@@ -23,17 +23,23 @@ describe("Character", function() {
     });
 
 });
-
-	 Opp.hp = roll(MDchar.roll, Opp.armor, Opp.hp);
-
  describe("Attack", function() {
-// 	it("MDChar Can Roll", function() {
-//       expect(hit).toBe(true);
-//     });
  		it("Can score an attack", function() {
-      expect(Opp.gethp()).toBe(4);
+ 			Opp.hp = roll(MDchar.roll, Opp.armor, Opp.hp);
+      		expect(Opp.gethp()).toBe(4);
+      		Opp.hp = roll(MDchar.roll, Opp.armor, Opp.hp);
+      		expect(Opp.gethp()).toBe(3);
+      		MDchar.roll = 20;
+      		Opp.hp = roll(MDchar.roll, Opp.armor, Opp.hp);
+      		expect(Opp.gethp()).toBe(1);
+      		MDchar.roll = 10;
+      		Opp.hp = roll(MDchar.roll, Opp.armor, Opp.hp);
+      		expect(Opp.gethp()).toBe(0);
+    });
+ 		it("Can eliminate Opponenent", function() {
+ 			expect(Opp.gethp()).toBe(0);
     });
 });
- 	Opp.hp = roll(MDchar.roll, Opp.armor, Opp.hp);
+
 
 
