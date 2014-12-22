@@ -1,5 +1,5 @@
 
-var MDchar = new character("Matt", "Dorsey", 1, 20)
+var MDchar = new character("Matt", "Dorsey", 1, 10)
 var Opp = new character("Tim", "Bradshaw", 2, 8)
 describe("Character", function() {
 	//FName, LName, Align, Attack
@@ -31,7 +31,9 @@ describe("Character", function() {
 //       expect(hit).toBe(true);
 //     });
  		it("Can score an attack", function() {
-      expect(Opp.gethp()).toBe(3);
+      expect(Opp.gethp()).toBe(4);
     });
-
 });
+ 	Opp.hp = roll(MDchar.roll, Opp.armor, Opp.hp);
+
+
