@@ -1,24 +1,35 @@
 var alignment_option = ["Good", "Evil",  "Neutral"];
 
-function character(first, last, align, _armor) {
+			//FName, LName, Align, Attack, Armor
+function character(first, last, align, roll) {
     this.firstName = first;
     this.lastName = last;
     this.alignment = alignment_option[align];
-    this.armor = _armor;
+    this.armor = 10; //Set by Default
+    this.hp = 5; //Set by default
+    this.roll = roll;
     this.fullname = function() {return this.firstName + this.lastName;}
     this.getName  = function() {return this.firstName;}
     this.setName  = function(newName) {return this.firstName = newName;}
     this.setAlign = function(newAlign) { return this.alignment = alignment_option[newAlign];}
  	this.getAlign = function() { return this.alignment;}
+	this.getArmor = function() { return this.armor;}
+ 	this.gethp = function() { return this.hp;}
+ 	this.setAttack = function(attack) { return this.attack = attack;}
+
+
 };
 
-function createChar(newID){
-	var newID = new character();
-}
+function roll(attack, defend, hp){
+	if (attack>=defend) {
+		return hp-1;
+	};
+	if (attack<defend){
+		return hp;
+	}
+//pass attack value of P1 and armor of opp.
 
-//  function setName(name) {
-// 	return name;
-// };
+};
 
 //  function getName(name) {
 // 	_name = name;
