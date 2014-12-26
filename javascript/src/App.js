@@ -14,20 +14,47 @@ function character(first, last, align, roll) {
     
     this.defArmor = 10; //Default armor and updates when permanant 
     this.armor = function () {return this.defArmor + this.applyMod(this.Dexterity);}
-    
+    //Add dexterity modifier to armor
+
     this.defhp = 5; //Set by default
-    this.hp =  function () {return this.defhp + this.applyMod(this.Constitution);}
+    this.hp =  function () {
+        if (this.defhp < 0){
+                return 0;
+        }
+        else if (this.defhp + this.applyMod(this.Constitution) >= 0){
+            return this.defhp + this.applyMod(this.Constitution);
+        }
+        
+        else return 1;}
     //add Constitution modifier to hit points (always at least 1 hit point)
+    //Low constitution shouldn't make hp <= 0
     
     this.roll = roll;
+
+    this.rollfc = function () {
+        if (this.defhp < 0){
+                return 1;
+            }
+        else if (this.roll + this.applyMod(this.Strength) >= 0){
+            return this.roll + this.applyMod(this.Strength);}
+        else {   return 1;}
+    };
+        //    if (this.defhp < 0){
+        //         return 0;
+        // }
+        // else if (this.defhp + this.applyMod(this.Constitution) >= 0){
+        //     return this.defhp + this.applyMod(this.Constitution);
+        // }
+        
+        // else return 1;}
+    //add Strength modifier to: attack roll and damage dealt
     
     this.fullname = function() {return this.firstName + this.lastName;}
     this.setName  = function(newName) {return this.firstName = newName;}
     this.setAlign = function(newAlign) { return this.alignment = alignment_option[newAlign];}
  	this.setAttack = function(attack) { return this.attack = attack;}
  	this.applyMod = function(attr){  //apply abilities to update
- 		//return this.Dexterity;
- 		 	if (attr == 1){return -5;}
+            if (attr == 1){return -5;}
  		if (attr === 2 || attr === 3)
  			{return -4;}
  		if (attr === 4 || attr === 5)
@@ -54,20 +81,28 @@ function character(first, last, align, roll) {
 function curse(char){
 	return char.Dexterity - 1;
 };
-			//mdchar 10, 10 opp.armor, opp.hp
-function roll(attack, defend, hp){
+   //var _pd.hp = pd.hp();
+function attack(pa, pd){
+x= pd.hp();
 
-	if (attack === 20){
-        Opp.defhp =  Opp.defhp-2 ;
-		return Opp.hop();
-	}
-	
-	if (attack>=defend) {
-         Opp.defhp =  Opp.defhp-1 ;
-		return Opp.hp();
-	};
-	if (attack<defend){
-		return Opp.hp();
-	}
+    if (pd.hp() <= 0) {
+        pd.defhp = 0;
+        pd.Constitution = 10;
+        return 0 
+    };
+
+    if (pa.rollfc() >= 20){
+        pd.defhp =  pd.defhp-2 ;
+        return pd.hp();
+    };
+
+    if (pa.rollfc()>=pd.armor()) {
+         pd.defhp =  pd.defhp-1 ;
+         x=pd.Constitution;
+        return pd.hp();
+    };
+    if (pa.rollfc()<pd.armor()){
+        return pd.hp();
+    };
 };
 
