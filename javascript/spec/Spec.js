@@ -1,9 +1,9 @@
 
-var MDchar = new character("Matt", "Dorsey", 1, 10, "human", "Fighter");
-var OppOrc = new orcCharacter("Bill", "Bradshaw", 2, 10, "orc"); //fname, lname, Alignment, attck-roll
-var MDElf = new elfCharacter("Susan", "Smith", 0, 10, "elf");
-var OppDwarf = new dwarfCharacter("Tim", "Thomas", 2, 10, "dwar"); //fname, lname, Alignment, attck-roll
-var MDHalf = new halflingCharacter("Lou", "Lou", 1, 10, "halfling");
+var MDchar = new character("Matt", "Dorsey", 0, 10, "human", "Paladin");
+var OppOrc = new character("Bill", "Bradshaw", 1, 10, "orc", "Fighter"); //fname, lname, Alignment, attck-roll
+// var MDElf = new elfCharacter("Susan", "Smith", 0, 10, "elf");
+// var OppDwarf = new dwarfCharacter("Tim", "Thomas", 2, 10, "dwar"); //fname, lname, Alignment, attck-roll
+// var MDHalf = new halflingCharacter("Lou", "Lou", 1, 10, "halfling");
 
 
 describe("Character", function() {
@@ -11,6 +11,135 @@ describe("Character", function() {
     expect(MDchar.firstName).toBe("Matt");
     });
   });
+
+
+// describe("Testing Paladin", function() {
+//   it("has a start of 999XP and level 1", function() {
+//     MDchar.XP = 999
+//     expect(MDchar.XP).toBe(999);
+//     });
+
+//     it("MD Char is a Paladin Classtype", function() {
+//     expect(MDchar.Classtype).toBe("Paladin");
+//     });
+
+//       it("Opp orc to have 5 HP prior to attack", function() {
+//     expect(OppOrc.defhp).toBe(5);
+//     });
+//     it("Opp orc should be Evil", function() {
+//     expect(OppOrc.alignment).toBe("Evil");
+//     });
+
+//     it("Can gain 10 XP to be 1009 +2 to attack and damage when attacking evil characters", function() {
+//       //MDchar.XP = MDchar.XP + 10;
+//       attack(MDchar, OppOrc);
+//     expect(MDchar.XP).toBe(1009);
+//     });
+
+//     it("Evil Orc should be 2 (5-3) when MDchar is Paladin ", function() {
+//     expect(OppOrc.defhp).toBe(2);
+//     });
+
+//     it("Evil Orc should be reset to 13 HP", function() {
+//       OppOrc.defhp = 13;
+//     expect(OppOrc.defhp).toBe(13);
+//     });
+
+//     it("Crit hit on evil should be 1 (13-8)", function() {
+//     MDchar.roll = 20;
+//     attack(MDchar, OppOrc);
+//     expect(OppOrc.defhp).toBe(5);
+//     });
+
+//     it("MD Paladin should get 13 (5+8) HP after leveling up", function() {
+//     expect(MDchar.defhp).toBe(13);
+//     });
+//     it("MD Char is a Paladin Classtype", function() {
+//     expect(MDchar.Classtype).toBe("Paladin");
+//     });
+
+//     it("MD Paladin rolls 10+level 4 to damage orc 2 (5-3) with armor 15", function() {
+//       OppOrc.defhp = 5;
+//       MDchar.roll = 10;
+//       MDchar.XP = 100;
+//       OppOrc.alignment = "Evil"
+//    //   MDchar.level = 6;
+//       //OppOrc.defArmor = 15;
+//       OppOrc.Dexterity = 18;
+//    attack(MDchar, OppOrc);      
+//     expect(OppOrc.defhp).toBe(2);
+//     //expect(MDchar.level).toBe(5);
+//     });
+
+//   });
+
+// describe("Testing War Monk", function() {
+//   it("has a start of 999XP and level 1", function() {
+//     MDchar.XP = 999
+//     expect(MDchar.XP).toBe(999);
+//     });
+//     it("MD Char is a War Monk Classtype", function() {
+//     expect(MDchar.Classtype).toBe("War Monk");
+//     });
+//       it("Opp orc to have 5 HP prior to attack", function() {
+//     expect(OppOrc.defhp).toBe(5);
+//     });
+
+//     it("Can gain 10 XP to be 1009", function() {
+//       //MDchar.XP = MDchar.XP + 10;
+//       attack(MDchar, OppOrc);
+//     expect(MDchar.XP).toBe(1009);
+//     });
+
+//     it("Can level up from 1 to 2 after crossing 999 to 1009", function() {
+//     expect(MDchar.level).toBe(2);
+//     });
+//         it("Expect War Monk to have now have 11 HP at level 2", function() {
+//     expect(MDchar.defhp).toBe(11);
+//     });
+//     it("Opp Orc should have 2 (5-3) HP after War Monk reg attack", function() {
+//     expect(OppOrc.defhp).toBe(2);
+//     });
+//     it("Wisdom modifier 15 (if positive) to Armor Class in addition to Dexterity", function() {
+//     MDchar.Wisdom = 15;
+//     expect(MDchar.armor()).toBe(7);
+//     });
+//     it("Wisdom modifier 5 (if positive) to Armor Class in addition to Dexterity", function() {
+//     MDchar.Wisdom = 5;
+//     expect(MDchar.armor()).toBe(5);
+//     });
+
+//   });
+
+// describe("Level Up", function() {
+//   it("has a start of 999XP and level 1", function() {
+//     MDchar.XP = 999
+//     expect(MDchar.XP).toBe(999);
+//     });
+//       it("orc to have 5 HP prior to attack", function() {
+//     expect(OppOrc.defhp).toBe(5);
+//     });
+
+//     it("expect MD class to be Rogue", function() {
+//     expect(MDchar.Classtype).toBe("Rogue");
+//     });
+
+//     it("Can gain 10 XP to be 1009", function() {
+//       //MDchar.XP = MDchar.XP + 10;
+//       attack(MDchar, OppOrc);
+//     expect(MDchar.XP).toBe(1009);
+//     });
+//     it("Orc takes -2 damage down to 3 HP left", function() {
+//       //MDchar.XP = MDchar.XP + 10;
+//     expect(OppOrc.defhp).toBe(3);
+//     });
+//     it("Can level up from 1 to 2 after crossing 999 to 1009", function() {
+//     expect(MDchar.level).toBe(2);
+//     });
+//         it("Expect Fighter to how have 15HP (5+10) after leveling up", function() {
+//     expect(MDchar.defhp).toBe(15);
+//     });
+//   });
 
 
 //Feature: A Character can gain experience when attacking +10XP per attak
@@ -69,24 +198,32 @@ describe("Character", function() {
 //     });
 //   });
 //   });
-describe("Rogue ignores Opps Dex", function() {
-  it("should change Opp Dex from 14 to 10", function() {
-     //attack(MDchar, Opp);
-    //MDchar.level = 2;
-    MDchar.XP = 1999;
-    OppOrc.defArmor = 10;
-    OppOrc.Dexterity = 10;
-    attack(MDchar, OppOrc);
-    //expect(MDchar.level).toBe(3);
-    expect(OppOrc.defhp).toBe(4);
-    expect(MDchar.hp()).toBe(10);
-    // expect(OppOrc.hp()).toBe(4);
-    // expect(MDchar.Race).toBe("human")
-    // // expect(MDchar.hp()).toBe(10);
-    // // expect(MDchar.level).toBe(2);
-    });
-  });
+// describe("Rogue ignores Opps Dex", function() {
+//   it("should change Opp Dex from 14 to 10", function() {
+//      //attack(MDchar, Opp);
+//     //MDchar.level = 2;
+//     MDchar.XP = 1999;
+//     OppOrc.defArmor = 10;
+//     OppOrc.Dexterity = 10;
+//     attack(MDchar, OppOrc);
+//     //expect(MDchar.level).toBe(3);
+//     expect(OppOrc.defhp).toBe(4);
+//     expect(MDchar.hp()).toBe(10);
+//     // expect(OppOrc.hp()).toBe(4);
+//     // expect(MDchar.Race).toBe("human")
+//     // // expect(MDchar.hp()).toBe(10);
+//     // // expect(MDchar.level).toBe(2);
+//     });
+// //   });
 
+// describe("Rogue ignores Opps Dex", function() {
+//   it("should change Opp Dex from 14 to 10", function() {
+//      //attack(MDchar, Opp);
+//     //MDchar.level = 2;
+//     MDchar.XP = 1999;
+//     expect(MDchar.level.toBe(1);
+//     });
+//   });
 
 
 
