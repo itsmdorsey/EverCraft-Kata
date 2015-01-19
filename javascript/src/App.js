@@ -97,378 +97,202 @@ function character(first, last, align, roll, Race, Classtype) {
  			{return 5;}
  	  }
 };
-// function orcCharacter(first, last, align, roll, Race, Classtype) {
-//     this.firstName = first;
-//     this.lastName = last;
-//     this.alignment = alignment_option[align];
-//     this.race = Race;
+function characterOrc(first, last, align, roll, Race, Classtype) {
+    this.firstName = first;
+    this.lastName = last;
+    this.alignment = alignment_option[align];
+    this.Race = Race;
+    this.Classtype = Classtype;
 
-//     //racecheck(this);
-//     // this.Strength = Race.Strength; //Set by Default; 
+    this.Strength = 10+2;
+    this.Dexterity = 10; //Set by Default; 
+    this.Constitution = 10; //Set by Default; 
+    this.Wisdom = 10-1; //Set by Default; 
+    this.Intelligence = 10-1; //Set by Default; 
+    this.Charisma = 10-1; //Set by Default;
+    this.XP = 0;
+    this.level = 1; //0+this.levelcheck(this.XP);
 
-//     this.Strength = 10;
-//     this.Dexterity = 10; //Set by Default; 
-//     this.Constitution = 10; //Set by Default; 
-//     this.Wisdom = 10; //Set by Default; 
-//     this.Intelligence = 10; //Set by Default; 
-//     this.Charisma = 10; //Set by Default;
-//     this.XP = 0;
-//     this.level = 1;
 
-//     this.levelUp = function () {// upon level up add HP and other perks
-//         //return this.level
-//         this.defhp += 5;
-//         this.level +=1;
-//         //if mod 2 on roll === 0  then add +1 to roll attack value function
+    this.levelUp = function () {// upon level up add HP and other perks
+        //return this.level
+        this.defhp += 5;
+        if (this.Classtype === "Fighter"){
+            this.defhp +=5;
+        }
+        if (this.Classtype === "War Monk"){
+            this.defhp +=1;
+        }
+        if (this.Classtype === "Paladin"){
+            this.defhp +=3;
+        }        
+        this.level +=1;
+        //if mod 2 on roll === 0  then add +1 to roll attack value function
+    };
 
-//         };
     
+    this.defArmor = 10; //Default armor and updates when permanant 
+    this.armor = function () { 
+        var specOrc = 2;
+        if (this.Classtype === "War Monk" && this.applyMod(this.Wisdom) > 0){
+            return specOrc + this.defArmor + this.applyMod(this.Dexterity) + this.applyMod(this.Wisdom);
+        }
+        else { return specOrc + this.defArmor + this.applyMod(this.Dexterity)}
+        ;}
 
-    
-//     this.defArmor = 5; //Default armor and updates when permanant 
-//     this.armor = function () {return this.defArmor + this.applyMod(this.Dexterity);}
-//     //Add dexterity modifier to armor
-
-//     this.defhp = 5; //Set by default
-//     this.hp =  function () {
-//         if (this.defhp < 0){
-//                 return 0;
-//         }
-//         else if (this.defhp + this.applyMod(this.Constitution) >= 0){
-//             return this.defhp + this.applyMod(this.Constitution);
-//         }
+    this.defhp = 5; //Set by default
+    this.hp =  function () {
+        if (this.defhp < 0){
+                return 0;
+        }
+        else if (this.defhp + this.applyMod(this.Constitution) >= 0){
+            return this.defhp + this.applyMod(this.Constitution);
+        }
         
-//         else return 1;}
-//     //add Constitution modifier to hit points (always at least 1 hit point)
-//     //Low constitution shouldn't make hp <= 0
+        else return 1;}
     
-//     this.roll = roll;
+    this.roll = roll;
 
-//     this.rollfc = function () {
-//         if (this.defhp < 0){
-//                 return 1;
-//             }
-//         else if (this.roll + this.applyMod(this.Strength) >= 0){
-//             return this.roll + this.applyMod(this.Strength);}
-//         else {   return 1;}
-//     };
-//         //    if (this.defhp < 0){
-//         //         return 0;
-//         // }
-//         // else if (this.defhp + this.applyMod(this.Constitution) >= 0){
-//         //     return this.defhp + this.applyMod(this.Constitution);
-//         // }
+    this.rollfc = function () {//add Strength/Dex modifier to: attack roll and damage dealt
+        if (this.defhp < 0){
+                return 1;
+            }
+        if (this.roll + this.applyMod(this.Strength) >= 0 && this.Classtype != "Rogue"){
+            return this.roll + this.applyMod(this.Strength);}
+
+        if (this.roll + this.applyMod(this.Strength) >= 0 && this.Classtype == "Rogue"){
+            return this.roll + this.applyMod(this.Dexterity);}
+
+        return 1;
+    };
+
+    
+  //   this.fullname = function() {return this.firstName + this.lastName;}
+  //   this.setName  = function(newName) {return this.firstName = newName;}
+  //   this.setAlign = function(newAlign) { return this.alignment = alignment_option[newAlign];}
+    // this.setAttack = function(attack) { return this.attack = attack;}
+    this.applyMod = function(attr){  //apply abilities to update
+        if (attr == 1){return -5;}
+        if (attr === 2 || attr === 3)
+            {return -4;}
+        if (attr === 4 || attr === 5)
+            {return -3;}
+        if (attr === 6 || attr === 7)
+            {return -2;}
+        if (attr === 8 || attr === 9)
+            {return -1;}
+        if (attr === 10 || attr === 11)
+            {return 0;}     
+        if (attr === 12 || attr === 13)
+            {return 1;}
+        if (attr === 14 || attr === 15)
+            {return 2;}
+        if (attr === 16 || attr === 17)
+            {return 3;}
+        if (attr === 19 || attr === 18)
+            {return 4;}
+        if (attr === 20)
+            {return 5;}
+      }
+};
+function characterDwarf(first, last, align, roll, Race, Classtype) {
+    this.firstName = first;
+    this.lastName = last;
+    this.alignment = alignment_option[align];
+    this.Race = Race;
+    this.Classtype = Classtype;
+
+    this.Strength = 10;
+    this.Dexterity = 10; //Set by Default; 
+    this.Constitution = 10+1; //Set by Default; 
+    this.Wisdom = 10; //Set by Default; 
+    this.Intelligence = 10; //Set by Default; 
+    this.Charisma = 10-1; //Set by Default;
+    this.XP = 0;
+    this.level = 1; //0+this.levelcheck(this.XP);
+
+
+    this.levelUp = function () {// upon level up add HP and other perks
+        //return this.level
+        this.defhp += 5;
+        if (this.Classtype === "Fighter"){
+            this.defhp +=5;
+        }
+        if (this.Classtype === "War Monk"){
+            this.defhp +=1;
+        }
+        if (this.Classtype === "Paladin"){
+            this.defhp +=3;
+        }        
+        this.level +=1;
+        //if mod 2 on roll === 0  then add +1 to roll attack value function
+    };
+
+    
+    this.defArmor = 10; //Default armor and updates when permanant 
+    this.armor = function () { 
+        if (this.Classtype === "War Monk" && this.applyMod(this.Wisdom) > 0){
+            return this.defArmor + this.applyMod(this.Dexterity) + this.applyMod(this.Wisdom);
+        }
+        else { return this.defArmor + this.applyMod(this.Dexterity)}
+        ;}
+
+    this.defhp = 5; //Set by default
+    this.hp =  function () {
+        var specDwarf = 2;
+        if (this.defhp < 0){
+                return 0;
+        }
+
+        else if (this.defhp + this.applyMod(this.Constitution) >= 0 && this.applyMod(this.Constitution) >= 0){
+            return this.defhp + this.applyMod(this.Constitution)*2;
+        }
+
+        else if (this.defhp + this.applyMod(this.Constitution) >= 0){
+            return this.defhp + this.applyMod(this.Constitution);
+        }
         
-//         // else return 1;}
-//     //add Strength modifier to: attack roll and damage dealt
+        else return 1;}
     
-//     this.fullname = function() {return this.firstName + this.lastName;}
-//     this.setName  = function(newName) {return this.firstName = newName;}
-//     this.setAlign = function(newAlign) { return this.alignment = alignment_option[newAlign];}
-//     this.setAttack = function(attack) { return this.attack = attack;}
-//     this.applyMod = function(attr){  //apply abilities to update
-//             if (attr == 1){return -5;}
-//         if (attr === 2 || attr === 3)
-//             {return -4;}
-//         if (attr === 4 || attr === 5)
-//             {return -3;}
-//         if (attr === 6 || attr === 7)
-//             {return -2;}
-//         if (attr === 8 || attr === 9)
-//             {return -1;}
-//         if (attr === 10 || attr === 11)
-//             {return 0;}     
-//         if (attr === 12 || attr === 13)
-//             {return 1;}
-//         if (attr === 14 || attr === 15)
-//             {return 2;}
-//         if (attr === 16 || attr === 17)
-//             {return 3;}
-//         if (attr === 19 || attr === 18)
-//             {return 4;}
-//         if (attr === 20)
-//             {return 5;}
-//     }
-// };
-// function dwarfCharacter(first, last, align, roll, Race, Classtype) {
-//     this.firstName = first;
-//     this.lastName = last;
-//     this.alignment = alignment_option[align];
-//     this.race = Race;
+    this.roll = roll;
 
-//     //racecheck(this);
-//     // this.Strength = Race.Strength; //Set by Default; 
+    this.rollfc = function () {//add Strength/Dex modifier to: attack roll and damage dealt
+        if (this.defhp < 0){
+                return 1;
+            }
+        if (this.roll + this.applyMod(this.Strength) >= 0 && this.Classtype != "Rogue"){
+            return this.roll + this.applyMod(this.Strength);}
 
-//     this.Strength = 10;
-//     this.Dexterity = 10; //Set by Default; 
-//     this.Constitution = 10; //Set by Default; 
-//     this.Wisdom = 10; //Set by Default; 
-//     this.Intelligence = 10; //Set by Default; 
-//     this.Charisma = 10; //Set by Default;
-//     this.XP = 0;
-//     this.level = 1;
+        if (this.roll + this.applyMod(this.Strength) >= 0 && this.Classtype == "Rogue"){
+            return this.roll + this.applyMod(this.Dexterity);}
 
-//     this.levelUp = function () {// upon level up add HP and other perks
-//         //return this.level
-//         this.defhp += 5;
-//         this.level +=1;
-//         //if mod 2 on roll === 0  then add +1 to roll attack value function
+        return 1;
+    };
 
-//         };
-//     //write PA.levelUp function + HP
-
-    
-//     this.defArmor = 5; //Default armor and updates when permanant 
-//     this.armor = function () {return this.defArmor + this.applyMod(this.Dexterity);}
-//     //Add dexterity modifier to armor
-
-//     this.defhp = 5; //Set by default
-//     this.hp =  function () {
-//         if (this.defhp < 0){
-//                 return 0;
-//         }
-//         else if (this.defhp + this.applyMod(this.Constitution) >= 0){
-//             return this.defhp + this.applyMod(this.Constitution);
-//         }
-        
-//         else return 1;}
-//     //add Constitution modifier to hit points (always at least 1 hit point)
-//     //Low constitution shouldn't make hp <= 0
-    
-//     this.roll = roll;
-
-//     this.rollfc = function () {
-//         if (this.defhp < 0){
-//                 return 1;
-//             }
-//         else if (this.roll + this.applyMod(this.Strength) >= 0){
-//             return this.roll + this.applyMod(this.Strength);}
-//         else {   return 1;}
-//     };
-//         //    if (this.defhp < 0){
-//         //         return 0;
-//         // }
-//         // else if (this.defhp + this.applyMod(this.Constitution) >= 0){
-//         //     return this.defhp + this.applyMod(this.Constitution);
-//         // }
-        
-//         // else return 1;}
-//     //add Strength modifier to: attack roll and damage dealt
-    
-//     this.fullname = function() {return this.firstName + this.lastName;}
-//     this.setName  = function(newName) {return this.firstName = newName;}
-//     this.setAlign = function(newAlign) { return this.alignment = alignment_option[newAlign];}
-//     this.setAttack = function(attack) { return this.attack = attack;}
-//     this.applyMod = function(attr){  //apply abilities to update
-//             if (attr == 1){return -5;}
-//         if (attr === 2 || attr === 3)
-//             {return -4;}
-//         if (attr === 4 || attr === 5)
-//             {return -3;}
-//         if (attr === 6 || attr === 7)
-//             {return -2;}
-//         if (attr === 8 || attr === 9)
-//             {return -1;}
-//         if (attr === 10 || attr === 11)
-//             {return 0;}     
-//         if (attr === 12 || attr === 13)
-//             {return 1;}
-//         if (attr === 14 || attr === 15)
-//             {return 2;}
-//         if (attr === 16 || attr === 17)
-//             {return 3;}
-//         if (attr === 19 || attr === 18)
-//             {return 4;}
-//         if (attr === 20)
-//             {return 5;}
-//     }
-// };
-// function elfCharacter(first, last, align, roll, Race, Classtype) {
-//     this.firstName = first;
-//     this.lastName = last;
-//     this.alignment = alignment_option[align];
-//     this.race = Race;
-
-//     //racecheck(this);
-//     // this.Strength = Race.Strength; //Set by Default; 
-
-//     this.Strength = 10;
-//     this.Dexterity = 10; //Set by Default; 
-//     this.Constitution = 10; //Set by Default; 
-//     this.Wisdom = 10; //Set by Default; 
-//     this.Intelligence = 10; //Set by Default; 
-//     this.Charisma = 10; //Set by Default;
-//     this.XP = 0;
-//     this.level = 1;
-
-//     this.levelUp = function () {// upon level up add HP and other perks
-//         //return this.level
-//         this.defhp += 5;
-//         this.level +=1;
-//         //if mod 2 on roll === 0  then add +1 to roll attack value function
-
-//         };
-//     //write PA.levelUp function + HP
-
-    
-//     this.defArmor = 5; //Default armor and updates when permanant 
-//     this.armor = function () {return this.defArmor + this.applyMod(this.Dexterity);}
-//     //Add dexterity modifier to armor
-
-//     this.defhp = 5; //Set by default
-//     this.hp =  function () {
-//         if (this.defhp < 0){
-//                 return 0;
-//         }
-//         else if (this.defhp + this.applyMod(this.Constitution) >= 0){
-//             return this.defhp + this.applyMod(this.Constitution);
-//         }
-        
-//         else return 1;}
-//     //add Constitution modifier to hit points (always at least 1 hit point)
-//     //Low constitution shouldn't make hp <= 0
-    
-//     this.roll = roll;
-
-//     this.rollfc = function () {
-//         if (this.defhp < 0){
-//                 return 1;
-//             }
-//         else if (this.roll + this.applyMod(this.Strength) >= 0){
-//             return this.roll + this.applyMod(this.Strength);}
-//         else {   return 1;}
-//     };
-//         //    if (this.defhp < 0){
-//         //         return 0;
-//         // }
-//         // else if (this.defhp + this.applyMod(this.Constitution) >= 0){
-//         //     return this.defhp + this.applyMod(this.Constitution);
-//         // }
-        
-//         // else return 1;}
-//     //add Strength modifier to: attack roll and damage dealt
-    
-//     this.fullname = function() {return this.firstName + this.lastName;}
-//     this.setName  = function(newName) {return this.firstName = newName;}
-//     this.setAlign = function(newAlign) { return this.alignment = alignment_option[newAlign];}
-//     this.setAttack = function(attack) { return this.attack = attack;}
-//     this.applyMod = function(attr){  //apply abilities to update
-//             if (attr == 1){return -5;}
-//         if (attr === 2 || attr === 3)
-//             {return -4;}
-//         if (attr === 4 || attr === 5)
-//             {return -3;}
-//         if (attr === 6 || attr === 7)
-//             {return -2;}
-//         if (attr === 8 || attr === 9)
-//             {return -1;}
-//         if (attr === 10 || attr === 11)
-//             {return 0;}     
-//         if (attr === 12 || attr === 13)
-//             {return 1;}
-//         if (attr === 14 || attr === 15)
-//             {return 2;}
-//         if (attr === 16 || attr === 17)
-//             {return 3;}
-//         if (attr === 19 || attr === 18)
-//             {return 4;}
-//         if (attr === 20)
-//             {return 5;}
-//     }
-// };
-// function halflingCharacter(first, last, align, roll, Race, Classtype) {
-//     this.firstName = first;
-//     this.lastName = last;
-//     this.alignment = alignment_option[align];
-//     this.race = Race;
-
-//     //racecheck(this);
-//     // this.Strength = Race.Strength; //Set by Default; 
-
-//     this.Strength = 10;
-//     this.Dexterity = 10; //Set by Default; 
-//     this.Constitution = 10; //Set by Default; 
-//     this.Wisdom = 10; //Set by Default; 
-//     this.Intelligence = 10; //Set by Default; 
-//     this.Charisma = 10; //Set by Default;
-//     this.XP = 0;
-//     this.level = 1;
-
-//     this.levelUp = function () {// upon level up add HP and other perks
-//         //return this.level
-//         this.defhp += 5;
-//         this.level +=1;
-//         //if mod 2 on roll === 0  then add +1 to roll attack value function
-
-//         };
-//     //write PA.levelUp function + HP
-
-    
-//     this.defArmor = 5; //Default armor and updates when permanant 
-//     this.armor = function () {return this.defArmor + this.applyMod(this.Dexterity);}
-//     //Add dexterity modifier to armor
-
-//     this.defhp = 5; //Set by default
-//     this.hp =  function () {
-//         if (this.defhp < 0){
-//                 return 0;
-//         }
-//         else if (this.defhp + this.applyMod(this.Constitution) >= 0){
-//             return this.defhp + this.applyMod(this.Constitution);
-//         }
-        
-//         else return 1;}
-//     //add Constitution modifier to hit points (always at least 1 hit point)
-//     //Low constitution shouldn't make hp <= 0
-    
-//     this.roll = roll;
-
-//     this.rollfc = function () {
-//         if (this.defhp < 0){
-//                 return 1;
-//             }
-//         else if (this.roll + this.applyMod(this.Strength) >= 0){
-//             return this.roll + this.applyMod(this.Strength);}
-//         else {   return 1;}
-//     };
-//         //    if (this.defhp < 0){
-//         //         return 0;
-//         // }
-//         // else if (this.defhp + this.applyMod(this.Constitution) >= 0){
-//         //     return this.defhp + this.applyMod(this.Constitution);
-//         // }
-        
-//         // else return 1;}
-//     //add Strength modifier to: attack roll and damage dealt
-    
-//     this.fullname = function() {return this.firstName + this.lastName;}
-//     this.setName  = function(newName) {return this.firstName = newName;}
-//     this.setAlign = function(newAlign) { return this.alignment = alignment_option[newAlign];}
-//     this.setAttack = function(attack) { return this.attack = attack;}
-//     this.applyMod = function(attr){  //apply abilities to update
-//             if (attr == 1){return -5;}
-//         if (attr === 2 || attr === 3)
-//             {return -4;}
-//         if (attr === 4 || attr === 5)
-//             {return -3;}
-//         if (attr === 6 || attr === 7)
-//             {return -2;}
-//         if (attr === 8 || attr === 9)
-//             {return -1;}
-//         if (attr === 10 || attr === 11)
-//             {return 0;}     
-//         if (attr === 12 || attr === 13)
-//             {return 1;}
-//         if (attr === 14 || attr === 15)
-//             {return 2;}
-//         if (attr === 16 || attr === 17)
-//             {return 3;}
-//         if (attr === 19 || attr === 18)
-//             {return 4;}
-//         if (attr === 20)
-//             {return 5;}
-//     }
-// };
+    this.applyMod = function(attr){  //apply abilities to update
+        if (attr == 1){return -5;}
+        if (attr === 2 || attr === 3)
+            {return -4;}
+        if (attr === 4 || attr === 5)
+            {return -3;}
+        if (attr === 6 || attr === 7)
+            {return -2;}
+        if (attr === 8 || attr === 9)
+            {return -1;}
+        if (attr === 10 || attr === 11)
+            {return 0;}     
+        if (attr === 12 || attr === 13)
+            {return 1;}
+        if (attr === 14 || attr === 15)
+            {return 2;}
+        if (attr === 16 || attr === 17)
+            {return 3;}
+        if (attr === 19 || attr === 18)
+            {return 4;}
+        if (attr === 20)
+            {return 5;}
+      }
+};
 
 function levelcheck(XP){
     var chlevel;
@@ -533,9 +357,7 @@ function attack(pa, pd){
                 addattack = 0;
             }
             }
-
-
-    
+              
     // functions for Critical Hit of 20, 
    if (pa.rollfc() >= 20){
         critHit();

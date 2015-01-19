@@ -1,6 +1,8 @@
 
 var MDchar = new character("Matt", "Dorsey", 0, 10, "human", "Paladin");
 var OppOrc = new character("Bill", "Bradshaw", 1, 10, "orc", "Fighter"); //fname, lname, Alignment, attck-roll
+var dwarfchar = new characterDwarf("Bill", "Bradshaw", 1, 10, "orc", "Fighter"); //fname, lname, Alignment, attck-roll
+
 // var MDElf = new elfCharacter("Susan", "Smith", 0, 10, "elf");
 // var OppDwarf = new dwarfCharacter("Tim", "Thomas", 2, 10, "dwar"); //fname, lname, Alignment, attck-roll
 // var MDHalf = new halflingCharacter("Lou", "Lou", 1, 10, "halfling");
@@ -11,6 +13,15 @@ describe("Character", function() {
     expect(MDchar.firstName).toBe("Matt");
     });
   });
+
+describe("dwarf HP are double Constitution", function() {
+  it("Constitution = 20, HP +5 = 15", function() {
+    expect(dwarfchar.hp()).toBe(5);
+    });
+  });
+
+
+
 
 
 // describe("Testing Paladin", function() {
@@ -224,25 +235,6 @@ describe("Character", function() {
 //     expect(MDchar.level.toBe(1);
 //     });
 //   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	//FName, LName, Align, Attack
 // //NEED TO validate that it is a proper character when created.
